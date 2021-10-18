@@ -1,0 +1,38 @@
+1TDCF
+Tiago Sanches Pereira 
+RM:87071
+
+import socket
+import sys
+import time
+
+
+temp = time.time()
+
+
+if __name__ == '__main__':
+
+    ip = input('Insira o Ip a ser analisado: ')
+
+    ip2 = socket.gethostbyname(ip)
+
+    print('Scanneando as portas...', ip2)
+    print("Pressione CTRL + C para cancelar o scanner")
+try:
+
+    for i in range(1, 500):
+
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        c = s.connect_ex((ip2, i))
+
+        if (c == 0):
+
+            print('Porta %d: Aberta' % (i,))
+
+        s.close()
+except KeyboardInterrupt:
+    print("Scanner Cancelado")
+    sys.exit()
+
+print('Tempo do scanner:', time.time() - temp)
